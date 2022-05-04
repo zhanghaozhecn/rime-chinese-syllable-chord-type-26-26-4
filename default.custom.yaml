@@ -1,0 +1,21 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.14.3
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Wed Apr  6 11:21:10 2022"
+  rime_version: 1.5.3
+patch:
+  schema_list:
+    - {schema: sydbj}
+    - {schema: sydbjyj}
+    - {schema: luna_pinyin}
+
+  ascii_composer:
+    good_old_caps_lock: true
+    switch_key:
+      Shift_L: commit_text
+      Shift_R: commit_text
+      Control_L: noop
+      Control_R: noop
+      Caps_Lock: clear
+      Eisu_toggle: clear

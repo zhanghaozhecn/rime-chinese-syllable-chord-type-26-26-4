@@ -1,0 +1,37 @@
+# 符号词典
+
+---
+name: sydbj.fh
+version: 2022-04-13
+sort: original
+columns:
+  - text
+  - code
+...
+
+，	AAX
+。	AAY
+？	BAW
+；	CAW
+……	DAW
+“	EAW
+《	FAW
+（	GAW
+‘	HAW
+〈	IAW
+【	JAW
+、	KAW
+¥	LAW
+,	MAW
+！	ABW
+：	ACW
+——	ADW
+”	AEW
+》	AFW
+）	AGW
+’	AHW
+〉	AIW
+】	AJW
+·	AKW
+/	ALW
+.	AMW

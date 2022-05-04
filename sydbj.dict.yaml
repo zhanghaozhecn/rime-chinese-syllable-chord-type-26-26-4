@@ -1,0 +1,27 @@
+# 母词典，引用多个子词典，方便词典管理
+# name  码表名称，要和文件名一致
+# version 版本，可以自己随便取
+# sort  排序方式，值为by_weight或original。母子词典尽量采用相同sort，混合sort的机制不明。
+# import_tables 导入词典
+# columns 分列方式，表示从左到右的列信息，默认值为text/code/weight/stem。各个子词典可以不同。缺项数据必须放在最后一列。
+## text  字词
+## code  编码
+## weight  权重
+## stem  构词码。简码字有多个构词码时，可以分行表示，另起一行，前几项相同，仅stem不同。
+# encoder 编码器，有exclude_patterns和rules两项。仅写在母词典中有效。欲使用encoder，必须使用by_weight排序，且词组带有词频。encoder会穷举单字编码给词组编码。为了减少错误编码，并节省编码时间，含多音字的词组最好自行编码，不含多音字的词组不用编码。有多个可能编码的词组初始词频不明，猜测是平均分配。
+## exclude_patterns 禁用encoder的模式，用正则表达式表示。针对code而不是stem。
+## rules  自动造词规则，有length_equal和length_in_range两种项
+### length_equal  词组长度等于
+### length_in_range 词组长度在范围内
+
+---
+name: sydbj
+version: 2022-04-09
+sort: original
+import_tables:
+  - sydbj.fh
+  - sydbj.jz
+  - sydbj.jc
+  - sydbj.dz
+  - sydbj.cz
+...

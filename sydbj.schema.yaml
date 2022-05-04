@@ -1,0 +1,183 @@
+schema:
+  schema_id: sydbj
+  name: 声韵调并击4.3
+  version: 2022-05-02
+  author:
+    - 张皓哲（576440085@qq.com）
+    - 大牛（大牛音形的形码部分）
+  description:
+  dependencies:
+    # 反查方案
+    - fc
+
+switches:
+  - name: zh_simp_s2t
+    reset: 0
+    states: [ 简, 繁 ]
+  - name: ascii_punct
+    reset: 0
+    states: [ 。，, ．， ]
+  - name: full_shape
+    reset: 0
+    states: [ 半, 全 ]
+  - name: ascii_mode
+    reset: 0
+    states: [ 中, 英 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - chord_composer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - table_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+# 简体转繁体
+simplifier:
+  option_name: zh_simp_s2t
+  opencc_config: s2t.json
+
+# 菜单选项
+menu:
+  page_size: 10  # 候选个数
+
+speller:
+  auto_select: true  # 编码唯一自动上屏，需配合enable_completion，如果只启用这个，不启用最大码长和自动上屏模式，那么任何形式的唯一编码都会自动上屏，在这种模式下，自动造词会出问题，原因不明，所以必须启用自动上屏模式和最大码长。
+  alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMWXYZ'  # 进入输入区的字符，O表示单手无按键，F是符号专用键位组合，WXYZ表示拇指组合
+  initials: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM'  # 作为开头的字符
+  algebra:
+
+chord_composer:
+  alphabet: 'qazwsxedcrfvtgbyhnujmik,ol.p;/` '
+  algebra:
+    # 键名转换
+    - xlit|;,./` |FDJGXZ|
+    # 左右空格
+    - xform/^X$/AAX/
+    - xform/^Z$/ /
+    - xform/XZ/Y/
+    - xform/^Y$/AAY/
+    # 用编码表示空击
+    - xform/^([a-zFDJG]+)$/$1W/
+    - xform/([qwertasdfgzxcvb]+)([W-Z])/$1A$2/
+    - xform/^([yuiophjklFnmDJG])/A$1/
+    # 用_标识键位以区分键位和编码
+    - xform/([a-zFDJG])/$1_/
+    # 键位到编码的映射
+    # 二键组合普通编码
+    - xform/(x_d_|k_J_)/a/
+    - xform/(s_e_|i_l_)/e/
+    - xform/(q_r_|u_p_)/k/
+    - xform/(w_r_|u_o_)/n/
+    - xform/(w_e_|i_o_)/r/
+    - xform/(e_r_|u_i_)/f/
+    - xform/(a_f_|j_F_)/i/
+    - xform/(s_f_|j_l_)/q/
+    - xform/(s_d_|k_l_)/m/
+    - xform/(d_f_|j_k_)/z/
+    - xform/(z_v_|m_G_)/p/
+    - xform/(x_v_|m_J_)/c/
+    - xform/(x_c_|D_J_)/o/
+    - xform/(c_v_|m_D_)/s/
+    # 大写为简词专用键
+    - xform/(e_f_|j_i_)/B/
+    - xform/(w_f_|j_o_)/C/
+    - xform/(q_f_|j_p_)/D/
+    - xform/(d_v_|m_k_)/E/
+    - xform/(s_v_|m_l_)/F/
+    - xform/(a_v_|m_F_)/G/
+    - xform/(d_g_|h_k_)/H/
+    - xform/(s_g_|h_l_)/I/
+    - xform/(a_g_|h_F_)/J/
+    - xform/(g_|h_)/K/
+    - xform/(t_|y_)/L/
+    - xform/(b_|n_)/M/
+    # 一键组合普通编码
+    - xform/(q_|p_)/g/
+    - xform/(w_|o_)/x/
+    - xform/(e_|i_)/l/
+    - xform/(r_|u_)/v/
+    - xform/(a_|F_)/j/
+    - xform/(s_|l_)/u/
+    - xform/(d_|k_)/y/
+    - xform/(f_|j_)/d/
+    - xform/(z_|G_)/w/
+    - xform/(x_|J_)/t/
+    - xform/(c_|D_)/h/
+    - xform/(v_|m_)/b/
+    # 禁止输出非法组合
+    - xform/^([a-zA-M]{2}[W-Z])$/#$1/
+    - erase/^[^,\.#\d ].*//
+    - xform/#//
+    #- xform/^(.*)$/$1 /
+  # 并击过程中套用的式样
+  prompt_format:
+    # 过程编码加方括号
+    - xform/(.+)/[$1]/
+    - xlit/ABCDEFGHIJKLMWXYZ/_DNYTLWJQXZCS1234/
+
+translator:
+  dictionary: sydbj
+  enable_charset_filter: false  # 字符集过滤
+  enable_completion: true  # 显示编码未输入完整的词条
+  enable_sentence: false  # 整句模式
+  enable_user_dict: false  # 用户词典（用户词典记录动态字词频，用户词）
+  enable_encoder: false  # 自动编码
+  encode_commit_history: false  # 上屏组词
+  # 编码区格式
+  preedit_format:
+    - xlit/ABCDEFGHIJKLMWXYZ/_DNYTLWJQXZCS1234/
+  # 提示区格式
+  comment_format:
+    - xlit/ABCDEFGHIJKLMWXYZ/_DNYTLWJQXZCS1234/
+    - xform/~//
+    
+# 反查
+reverse_lookup:
+  # 默认笔画反查，可以自行修改
+  dictionary: fc
+  enable_completion: true
+  prefix: "&"  # 反查前缀
+  suffix: "'"
+  tips: 【反查】
+  preedit_format:
+  comment_format:
+
+# 符号
+punctuator:
+  import_preset: symbols_zhz
+
+# 功能键、组合键功能
+key_binder:
+  bindings:
+    - { accept: Tab, send: "Shift+Right", when: composing }
+    - { accept: "Shift+Tab", send: "Shift+Left", when: composing }
+    - { accept: BackSpace, send: Escape, when: composing }
+    - { accept: bracketleft, send: Page_Up, when: paging }
+    - { accept: bracketright, send: Page_Down, when: has_menu }
+    #- { accept: "Shift+Shift_R", select: .next, when: always }
+
+# 进入翻译器前的模式判断，符合模式的会进入对应的翻译器
+recognizer:
+  patterns:
+    # 用\引导其他符号
+    punct: '^\\([0-9]0?|[A-Za-z*\[\]\{\}\$%#~`\\|/=<>]+)?$'
+    # 用&引导反查
+    reverse_lookup: "&[a-z]*'?$"
