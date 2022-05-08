@@ -1,7 +1,7 @@
 schema:
   schema_id: sydbjyj
   name: 声韵调并击音节练习
-  version: 2022-05-02
+  version: 2022-05-05
   author:
     - 张皓哲（576440085@qq.com）
     - 大牛（大牛音形的形码部分）
@@ -47,8 +47,8 @@ engine:
 
 speller:
   auto_select: true  # 编码唯一自动上屏，需配合enable_completion，如果只启用这个，不启用最大码长和自动上屏模式，那么任何形式的唯一编码都会自动上屏，在这种模式下，自动造词会出问题，原因不明，所以必须启用自动上屏模式和最大码长。
-  alphabet: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMWXYZ'  # 进入输入区的字符，O表示单手无按键，F是符号专用键位组合，WXYZ表示拇指组合
-  initials: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLM'  # 作为开头的字符
+  alphabet: 'abcdefghijklmnopqrstuvwxyzABCDWXYZ'  # 进入输入区的字符，O表示单手无按键，F是符号专用键位组合，WXYZ表示拇指组合
+  initials: 'abcdefghijklmnopqrstuvwxyzABCD'  # 作为开头的字符
   algebra:
 
 chord_composer:
@@ -69,8 +69,8 @@ chord_composer:
     - xform/([a-zFDJG])/$1_/
     # 键位到编码的映射
     # 二键组合普通编码
-    - xform/(x_d_|k_J_)/a/
-    - xform/(s_e_|i_l_)/e/
+    - xform/(w_f_|j_o_)/a/
+    - xform/(e_f_|j_i_)/e/
     - xform/(q_r_|u_p_)/k/
     - xform/(w_r_|u_o_)/n/
     - xform/(w_e_|i_o_)/r/
@@ -83,19 +83,10 @@ chord_composer:
     - xform/(x_v_|m_J_)/c/
     - xform/(x_c_|D_J_)/o/
     - xform/(c_v_|m_D_)/s/
-    # 大写为简词专用键
-    - xform/(e_f_|j_i_)/B/
-    - xform/(w_f_|j_o_)/C/
-    - xform/(q_f_|j_p_)/D/
-    - xform/(d_v_|m_k_)/E/
-    - xform/(s_v_|m_l_)/F/
-    - xform/(a_v_|m_F_)/G/
-    - xform/(d_g_|h_k_)/H/
-    - xform/(s_g_|h_l_)/I/
-    - xform/(a_g_|h_F_)/J/
-    - xform/(g_|h_)/K/
-    - xform/(t_|y_)/L/
-    - xform/(b_|n_)/M/
+    # 大写为备用键
+    - xform/(g_|h_)/B/
+    - xform/(t_|y_)/C/
+    - xform/(b_|n_)/D/
     # 一键组合普通编码
     - xform/(q_|p_)/g/
     - xform/(w_|o_)/x/
@@ -110,7 +101,7 @@ chord_composer:
     - xform/(c_|D_)/h/
     - xform/(v_|m_)/b/
     # 禁止输出非法组合
-    - xform/^([a-zA-M]{2}[W-Z])$/#$1/
+    - xform/^([a-zA-D]{2}[W-Z])$/#$1/
     - erase/^[^,\.#\d ].*//
     - xform/#//
     #- xform/^(.*)$/$1 /
@@ -118,7 +109,7 @@ chord_composer:
   prompt_format:
     # 过程编码加方括号
     - xform/(.+)/[$1]/
-    - xlit/ABCDEFGHIJKLMWXYZ/_DNYTLWJQXZCS1234/
+    - xlit/AWXYZ/_1234/
 
 translator:
   dictionary: sydbjyj

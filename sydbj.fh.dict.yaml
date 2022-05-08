@@ -2,7 +2,7 @@
 
 ---
 name: sydbj.fh
-version: 2022-04-13
+version: 2022-05-07
 sort: original
 columns:
   - text
@@ -12,26 +12,23 @@ columns:
 ，	AAX
 。	AAY
 ？	BAW
-；	CAW
-……	DAW
-“	EAW
-《	FAW
-（	GAW
-‘	HAW
-〈	IAW
-【	JAW
-、	KAW
-¥	LAW
-,	MAW
 ！	ABW
+；	CAW
 ：	ACW
-——	ADW
-”	AEW
-》	AFW
-）	AGW
-’	AHW
-〉	AIW
-】	AJW
-·	AKW
-/	ALW
-.	AMW
+、	DAW
+·	ADW
+“	BAZ
+”	ABZ
+（	CAZ
+）	ACZ
+《	DAZ
+》	ADZ
+‘	BAX
+’	ABX
+……	CAX
+——	ACX
+〈	DAX
+〉	ADX
+¥	BBW
+.	DDW
+/	CCW

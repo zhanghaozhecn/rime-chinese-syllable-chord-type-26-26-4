@@ -16,12 +16,12 @@
 
 ---
 name: sydbj
-version: 2022-04-09
+version: 2022-05-06
 sort: original
 import_tables:
   - sydbj.fh
   - sydbj.jz
-  - sydbj.jc
   - sydbj.dz
+  - sydbj.jc
   - sydbj.cz
 ...
