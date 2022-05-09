@@ -2,7 +2,7 @@
 
 ---
 name: sydbj.fh
-version: 2022-05-07
+version: 2022-05-09
 sort: original
 columns:
   - text
@@ -17,18 +17,18 @@ columns:
 ：	ACW
 、	DAW
 ·	ADW
-“	BAZ
-”	ABZ
-（	CAZ
-）	ACZ
+（	BAZ
+）	ABZ
+“	CAZ
+”	ACZ
 《	DAZ
 》	ADZ
-‘	BAX
-’	ABX
-……	CAX
-——	ACX
+……	BAX
+——	ABX
+‘	CAX
+’	ACX
 〈	DAX
 〉	ADX
 ¥	BBW
-.	DDW
 /	CCW
+.	DDW
