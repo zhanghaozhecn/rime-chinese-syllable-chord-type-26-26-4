@@ -1,10 +1,10 @@
 schema:
   schema_id: sydbj
-  name: 声韵调并击5.0
-  version: 2022-05-05
+  name: 声韵调并击5.4
+  version: 20220712
   author:
     - 张皓哲（576440085@qq.com）
-    - 大牛（大牛音形的形码部分）
+    - 大牛（大牛双拼形码）
   description:
   dependencies:
     # 反查方案
@@ -49,19 +49,20 @@ engine:
     - simplifier
     - uniquifier
 
+
 # 简体转繁体
 simplifier:
   option_name: zh_simp_s2t
   opencc_config: s2t.json
 
-# 菜单选项
-menu:
-  page_size: 10  # 候选个数
 
 speller:
-  auto_select: true  # 编码唯一自动上屏，需配合enable_completion，如果只启用这个，不启用最大码长和自动上屏模式，那么任何形式的唯一编码都会自动上屏，在这种模式下，自动造词会出问题，原因不明，所以必须启用自动上屏模式和最大码长。
-  alphabet: 'abcdefghijklmnopqrstuvwxyzABCDWXYZ'  # 进入输入区的字符，O表示单手无按键，F是符号专用键位组合，WXYZ表示拇指组合
-  initials: 'abcdefghijklmnopqrstuvwxyzABCD'  # 作为开头的字符
+  # 编码唯一自动上屏，需配合enable_completion，如果启用本项但不启用最大码长和自动上屏模式，那么只要编码唯一就会自动上屏，在这种模式下，自动造词会出问题，原因不明，所以必须启用自动上屏模式和最大码长。
+  auto_select: true  
+  # 进入输入区的字符，_表示单手无按键，WXYZ表示拇指组合
+  alphabet: 'abcdefghijklmnopqrstuvwxyz_WXYZ'
+  # 作为开头的字符
+  initials: 'abcdefghijklmnopqrstuvwxyz_'
   algebra:
 
 chord_composer:
@@ -70,54 +71,54 @@ chord_composer:
     # 键名转换
     - xlit|;,./` |FDJGXZ|
     # 左右空格
-    - xform/^X$/AAX/
+    - xform/^X$/2/
     - xform/^Z$/ /
     - xform/XZ/Y/
-    - xform/^Y$/AAY/
+    - xform/^Y$/3/
     # 用编码表示空击
     - xform/^([a-zFDJG]+)$/$1W/
-    - xform/([qwertasdfgzxcvb]+)([W-Z])/$1A$2/
-    - xform/^([yuiophjklFnmDJG])/A$1/
+    - xform/([qwertasdfgzxcvb]+)([W-Z])/$1_$2/
+    - xform/^([yuiophjklFnmDJG])/_$1/
     # 用_标识键位以区分键位和编码
-    - xform/([a-zFDJG])/$1_/
-    # 键位到编码的映射
-    # 二键组合普通编码
-    - xform/(w_f_|j_o_)/a/
-    - xform/(e_f_|j_i_)/e/
-    - xform/(q_r_|u_p_)/k/
-    - xform/(w_r_|u_o_)/n/
-    - xform/(w_e_|i_o_)/r/
-    - xform/(e_r_|u_i_)/f/
-    - xform/(a_f_|j_F_)/i/
-    - xform/(s_f_|j_l_)/q/
-    - xform/(s_d_|k_l_)/m/
-    - xform/(d_f_|j_k_)/z/
-    - xform/(z_v_|m_G_)/p/
-    - xform/(x_v_|m_J_)/c/
-    - xform/(x_c_|D_J_)/o/
-    - xform/(c_v_|m_D_)/s/
-    # 大写为备用键
-    - xform/(g_|h_)/B/
-    - xform/(t_|y_)/C/
-    - xform/(b_|n_)/D/
-    # 一键组合普通编码
-    - xform/(q_|p_)/g/
-    - xform/(w_|o_)/x/
-    - xform/(e_|i_)/l/
-    - xform/(r_|u_)/v/
-    - xform/(a_|F_)/j/
-    - xform/(s_|l_)/u/
-    - xform/(d_|k_)/y/
-    - xform/(f_|j_)/d/
-    - xform/(z_|G_)/w/
-    - xform/(x_|J_)/t/
-    - xform/(c_|D_)/h/
-    - xform/(v_|m_)/b/
+    - xform/([a-zFDJG])/$1=/
+    # 键位映射
+    # 二键组合
+    #- xform/(w=f=|j=o=)//
+    #- xform/(s=v=|m=l=)//
+    #- xform/(d=v=|m=k=)//
+    #- xform/(e=f=|j=i=)//
+    - xform/(q=r=|u=p=)/k/
+    - xform/(a=f=|j=F=)/i/
+    - xform/(z=v=|m=G=)/p/
+    - xform/(w=r=|u=o=)/n/
+    - xform/(w=e=|i=o=)/r/
+    - xform/(e=r=|u=i=)/f/
+    - xform/(s=f=|j=l=)/q/
+    - xform/(s=d=|k=l=)/m/
+    - xform/(d=f=|j=k=)/z/
+    - xform/(x=v=|m=J=)/c/
+    - xform/(x=c=|D=J=)/o/
+    - xform/(c=v=|m=D=)/s/
+    # 一键组合
+    - xform/(g=|h=)/e/
+    - xform/(t=|y=)/a/
+    - xform/(b=|n=)/a/
+    - xform/(q=|p=)/g/
+    - xform/(w=|o=)/x/
+    - xform/(e=|i=)/l/
+    - xform/(r=|u=)/v/
+    - xform/(a=|F=)/j/
+    - xform/(s=|l=)/u/
+    - xform/(d=|k=)/y/
+    - xform/(f=|j=)/d/
+    - xform/(z=|G=)/w/
+    - xform/(x=|J=)/t/
+    - xform/(c=|D=)/h/
+    - xform/(v=|m=)/b/
     # 禁止输出非法组合
-    - xform/^([a-zA-D]{2}[W-Z])$/#$1/
-    - erase/^[^,\.#\d ].*//
+    - xform/^([a-z_]{2}[W-Z])$/#$1/
+    - erase/^[^#\d ].*//
     - xform/#//
-    #- xform/^(.*)$/$1 /
   # 并击过程中套用的式样
   prompt_format:
     # 过程编码加方括号
@@ -135,6 +136,7 @@ translator:
   preedit_format:
   # 提示区格式
   comment_format:
+    - xform/.*//
     
 # 反查
 reverse_lookup:
@@ -149,16 +151,16 @@ reverse_lookup:
 
 # 符号
 punctuator:
-  import_preset: symbols_zhz
+  import_preset: symbols_sydbj
 
 # 功能键、组合键功能
 key_binder:
   bindings:
-    - { accept: Tab, send: "Shift+Right", when: composing }
-    - { accept: "Shift+Tab", send: "Shift+Left", when: composing }
+    #- { accept: Tab, send: "Shift+Right", when: composing }
+    #- { accept: "Shift+Tab", send: "Shift+Left", when: composing }
     - { accept: BackSpace, send: Escape, when: composing }
-    - { accept: bracketleft, send: Page_Up, when: paging }
-    - { accept: bracketright, send: Page_Down, when: has_menu }
+    #- { accept: bracketleft, send: Page_Up, when: paging }
+    #- { accept: bracketright, send: Page_Down, when: has_menu }
     #- { accept: "Shift+Shift_R", select: .next, when: always }
 
 # 进入翻译器前的模式判断，符合模式的会进入对应的翻译器

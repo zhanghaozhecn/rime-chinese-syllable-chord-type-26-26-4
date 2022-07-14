@@ -1,0 +1,62 @@
+# wubi86.custom.yaml
+#
+# 補靪功能：實現快速加载滤镜
+#
+#关于滤镜
+#滤镜是指同文opencc文件夹内json文件及其指定的txt文件组合。最初是用来简繁转换,现已开发更多用途,如多行内容输出,字词典,英语单词加提示,任意方案显示其它方案编码等
+#
+#
+# 作者：风之漫舞 qq:847243643
+#建议加群,同文堂480159874
+# 本文件部署位置：
+# ~/.config/ibus/rime  (Linux)
+# ~/Library/Rime  (Mac OS)
+# %APPDATA%\Rime  (Windows)
+#存储卡/rime(Android)
+#
+# 滤镜文件部署位置：
+# ~/.config/ibus/rime/opencc  (Linux)
+# ~/Library/Rime/opencc  (Mac OS)
+# %APPDATA%\Rime\opencc  (Windows)
+#存储卡/rime/opencc (Android)
+#
+# 於重新部署後生效
+#
+#
+# 注意：本補靪適用於所有rime方案。
+#默认方案名wubi86
+# 只須將本 custom.yaml 的前面名字改爲對應的輸入方案名字然後放入用戶文件夾重新部署即可。如更名爲 cangjie5.custom.yaml 即可應用至倉頡輸入法中。
+#
+#
+#完整补丁文件教程请看Rime定制指南
+#https://github.com/rime/home/wiki/CustomizationGuide#%E5%AE%9A%E8%A3%BD%E6%8C%87%E5%8D%97
+#
+#更多滤镜请看
+#https://pan.baidu.com/s/1DfCV0OcOLQRCQmv2kweb_w
+#密码：6666
+#
+#下面以dic_4w_en.json文件所代表的滤镜为例
+# 注意关键字为dic_4w_en,当你想更换为其它滤镜时,只需要依照xxx.json文件名,将dic_4w_en全部更换为xxx即可
+#本滤镜效果是在英文单词编码区显示释义
+#
+
+patch:
+  #加载dic_4w_en滤镜
+  "switches/@next": 
+    name: dic_fy
+    reset: 1 #初始状态,0关1开
+    states: ["️️🅻", "🄻️"]  #侯选栏显示内容,可省略,可更改
+
+  "engine/filters/@next": simplifier@dic_fy
+  dic_fy:
+    opencc_config: dic_fy.json
+    option_name: dic_fy
+    show_in_comment: true #开启编码滤镜
+    comment_format:  #编码滤镜正则处理
+      - "xform/<br>/\r/" #编码滤镜内容换行
+      - "xform/&nbsp/ /" #编码滤镜内容显示空格
+#上述带#号为编码滤镜模式, 普通滤镜直接在行首用#号屏蔽,编码滤镜
+    tags:
+      - abc
+    tips: char #none无注释,char单字注释,all全部注释
+

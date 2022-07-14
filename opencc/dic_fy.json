@@ -1,0 +1,19 @@
+{
+  "name": "English2ch",
+  "segmentation": {
+    "type": "mmseg",
+    "dict": {
+      "type": "text",
+      "file": "dzhint.txt"
+    }
+  },
+  "conversion_chain": [{
+    "dict": {
+      "type": "group",
+      "dicts": [{
+        "type": "text",
+        "file": "dzhint.txt"
+      }]
+    }
+  }]
+}
